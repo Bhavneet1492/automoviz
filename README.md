@@ -1,10 +1,10 @@
 # AUTOMOVIZ
 <p align="center">
   <img 
-    height="400"
+    height="300"
     src="./images/readme/banner.png"
   >
-  <h2 align="center" >A data analysis platform for the automotive industry</h2>
+  <h4 align="center">A data analysis platform for the automotive industry</h4>
 </p>
 
 
