@@ -1,2 +1,2 @@
 # AUTOMOVIZ
-A data analysis platform for the automobile industry
+A data analysis platform for the automotive industry
