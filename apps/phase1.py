@@ -17,13 +17,13 @@ def isaln(x):
     for c in x:
         if c.isdigit():return True
 
-#setting the page configuration
-st.set_page_config(
-    page_title="Data cleaning",
-    page_icon="📊",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+# #setting the page configuration
+# st.set_page_config(
+#     page_title="Data cleaning",
+#     page_icon="📊",
+#     layout="wide",
+#     initial_sidebar_state="expanded",
+# )
 
 def app():
 
@@ -124,7 +124,7 @@ def app():
 
         # raise an error if the upploaded dataset needs to be viewed but no dataset has been uploaded 
         try:
-            with st.expander("View Data"):
+            with st.expander("View Data",expanded=True):
                 with st.spinner(text="Spreading the table..."):
                     time.sleep(1)
                     st.dataframe(df,None,None)
@@ -134,90 +134,6 @@ def app():
 
             # ---------------------------------------- #
             
-        st.markdown(""" <hr> """,True)
-        st.markdown(""" ### Cleaning booth """)
-        
-        """
-        Each of the following functions can be performed in order to clean the dataset:
-            ->feature reduction
-            ->handling missing values
-            ->filterring digits from strings
-            ->encoding categorical data
-            ->smoothening the data
-            ->handling outliers
-            ->viewing correlations
-        """
-        
-        with st.expander("Filter digits from string"):
-            cols=st.multiselect("select the column(s)",df.columns,key=5252)
-        with st.expander("Datatype conversion"):
-            cols=st.multiselect("select the column(s) to convert",df.columns,key=525)
-            choice=st.radio("Change the datatype to",['None','integer','float','string'],key=514)
-        with st.expander("Encode categorical data"):
-            choice=st.radio("Select the desired method",['None','Label encoder','One hot encoder'],key=54)
-            cols=st.multiselect("select the column(s) to encode",df.columns,key=55)
-        with st.expander("Feature reduction"):
-            choice=st.radio("Select the desired method",['None','PCA','Drop column(s)'],key=343)
-            if choice=='Drop column(s)':
-                cols=st.multiselect("select the column(s) to drop",df.columns,key=15)
-                df.drop(cols,axis=1,inplace=True)
-                if st.button('view updated dataset',key=90):
-                    st.dataframe(df)
-                    st.write(df.shape)
-            if choice=='PCA':
-                st.markdown("""
-                
-                <style>
-                a{
-                    text-decoration:none;
-                    color:cyan;
-                    transition:0.2s ease-in-out;
-                }
-                a:hover{
-                    opacity:0.6;
-                    text-decoration:none;
-                }
-                </style>
-                <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">What is PCA?</a>
-                
-                """,True)
-                
-                n = st.slider('Choose the number of components', 0, df.shape[1], 1)
-                
-                pca = PCA(n_components = n)
-                pca.fit(df)
-                df = pca.transform(df)
-                
-                st.write(df.shape)
-
-        with st.expander("Handle missing values"):
-            choice=st.radio("Select the desired method",['None','Drop column(s)','Drop row(s)','Fill in null values','Imputation'],key=34)
-            if choice=='Drop column(s)':
-                df.dropna(how='any',axis=1,inplace=True)
-                if st.button('view updated dataset',key=78):
-                    st.dataframe(df)
-                    st.write(df.shape)
-                if choice=='Drop row(s)':
-                    df.dropna(how='any',inplace=True)
-                    if st.button('view updated dataset',key=114):
-                        st.dataframe(df)
-                        st.write(df.shape)
-        with st.expander("Smoothen the data"):st.write('hello')
-        with st.expander("Normalization / with Standard scaling"):st.write('hello')
-        with st.expander("Outliers and plots"):st.write('hello')
-        with st.expander("Heatmaps / Correlation matrices"):st.write('hello')
-
-        # downoading the cleaned data file
-        @st.cache
-        def convert_df(df):
-            return df.to_csv().encode('utf-8')
-        csv = convert_df(df)
-        st.download_button(
-            label="Download the cleaned dataset",
-            data=csv,
-            file_name='cleaned_df.csv',
-            mime='text/csv',
-        )
 
 
     with col2:
@@ -297,41 +213,126 @@ def app():
         except:
             st.error("⚠️ Select a datset")
 
-        st.markdown(""" <hr> """,True)
-        st.markdown(""" ### Raw data visualization """)
+    st.markdown(""" <hr> """,True)
+    st.markdown(""" ### Cleaning booth """)
+        
+    """
+        Each of the following functions can be performed in order to clean the dataset:
+            ->feature reduction
+            ->handling missing values
+            ->filterring digits from strings
+            ->encoding categorical data
+            ->smoothening the data
+            ->handling outliers
+            ->viewing correlations
+    """
+    colx,coly,colz,colp,colq=st.columns(5)
+    with colx:        
+        with st.expander("Filter digits from string"):
+            cols=st.multiselect("select the column(s)",df.columns,key=5252)
+    with coly:
+        with st.expander("Datatype conversion"):
+            cols=st.multiselect("select the column(s) to convert",df.columns,key=525)
+            choice=st.radio("Change the datatype to",['None','integer','float','string'],key=514)
+    with colz:
+        with st.expander("Encode categorical data"):
+            choice=st.radio("Select the desired method",['None','Label encoder','One hot encoder'],key=54)
+            cols=st.multiselect("select the column(s) to encode",df.columns,key=55)
+    with colp:
+        with st.expander("Feature reduction"):
+            choice=st.radio("Select the desired method",['None','PCA','Drop column(s)'],key=343)
+            if choice=='Drop column(s)':
+                cols=st.multiselect("select the column(s) to drop",df.columns,key=15)
+                df.drop(cols,axis=1,inplace=True)
+                if st.button('view updated dataset',key=90):
+                    st.dataframe(df)
+                    st.write(df.shape)
+            if choice=='PCA':
+                st.markdown("""
+                
+                <style>
+                a{
+                    text-decoration:none;
+                    color:cyan;
+                    transition:0.2s ease-in-out;
+                }
+                a:hover{
+                    opacity:0.6;
+                    text-decoration:none;
+                }
+                </style>
+                <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">What is PCA?</a>
+                
+                """,True)
+                
+                n = st.slider('Choose the number of components', 0, df.shape[1], 1)
+                
+                pca = PCA(n_components = n)
+                pca.fit(df)
+                df = pca.transform(df)
+                
+                st.write(df.shape)
 
-        cols=st.multiselect("Select upto two columns for visualization",df.columns,key=8890)
-        if len(cols)>2 or len(cols)<=0:st.error("⚠️ Select upto two columns")
+        with colq:
+            with st.expander("Handle missing values"):
+                choice=st.radio("Select the desired method",['None','Drop column(s)','Drop row(s)','Fill in null values','Imputation'],key=34)
+                if choice=='Drop column(s)':
+                    df.dropna(how='any',axis=1,inplace=True)
+                    if st.button('view updated dataset',key=78):
+                        st.dataframe(df)
+                        st.write(df.shape)
+                    if choice=='Drop row(s)':
+                        df.dropna(how='any',inplace=True)
+                        if st.button('view updated dataset',key=114):
+                            st.dataframe(df)
+                            st.write(df.shape)
+        with colx:
+            with st.expander("Smoothen the data"):st.write('hello')
+        with coly:
+            with st.expander("Normalization / with Standard scaling"):st.write('hello')
+        with colz:
+            with st.expander("Outliers and plots"):st.write('hello')
+        with colp:
+            with st.expander("Heatmaps / Correlation matrices"):st.write('hello')
+        with colq:
+            # downoading the cleaned data file
+            @st.cache
+            def convert_df(df):
+                return df.to_csv().encode('utf-8')
+            csv = convert_df(df)
+            st.download_button(
+                label="Download the cleaned dataset",
+                data=csv,
+                file_name='cleaned_df.csv',
+                mime='text/csv',
+            )
+    st.markdown(""" <hr> """,True)  
+    st.markdown(""" ### Raw data visualization """)
+
+    cola,colb=st.columns(2)
+    with cola:
+        cols=st.multiselect("Select upto two columns for visualization",df.columns,key=8890,default=['Audiosystem','Ex-Showroom_Price'])
 
         def display_error(n):
             st.error("⚠️ Select ",n, "columns")
-        def checkType(cols):
-            if df[cols[0]].dtype==object or df[cols[1]].dtype==object:
-                st.error("⚠️ Datatype of columns must be integer or float only")
-                return True
-            else:return False
-
-        if st.button('Scatter Plot'):
-            if len(cols)<2:display_error(2)
-            elif checkType(cols):pass
-            else:
-                pass
-
-        if st.button('Line Chart'):
-            if len(cols)<2:display_error(2)
-            elif checkType(cols):pass
-            else:
-               line = alt.Chart(df).mark_line(color="white").encode(x=cols[0],y=cols[1],tooltip=cols)
-               st.altair_chart(line)
-               st.line_chart(df[cols],use_container_width=True)
-        if st.button('Box Plot'):
-            if len(cols)<2:display_error(2)
-            elif checkType(cols):pass
-            else:
-                chart=alt.Chart(df).mark_point().encode(x=cols[0],y=cols[1],tooltip=cols)
-                st.altair_chart(chart)
-        
-
             
-                
-                
+        st.markdown("#### datatypes")
+        st.write(cols[0],":",df[cols[0]].dtype)
+        st.write(cols[1],":",df[cols[1]].dtype)
+
+        if st.checkbox('View Box Plot',value=True):
+            if len(cols)!=2:display_error(2)
+            else:
+                fig = px.box(df, x=cols[0], y=cols[1])
+                st.plotly_chart(fig,use_container_width=True)
+
+    with colb:
+
+        col=st.selectbox("Select a feature",df.columns,key=88940)
+
+        st.markdown("#### datatype")
+        st.write(col,":",df[col].dtype)
+
+        if st.checkbox('View Histogram',value=True):
+            fig = px.histogram(df, x=col)
+            st.plotly_chart(fig,use_container_width=True)             
