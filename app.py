@@ -1,21 +1,23 @@
 import streamlit as st
-from apps import phase1
+from apps import phase1,phase2,phase3,phase4
 
-#setting the page configuration
-st.set_page_config(
-    page_title="Data cleaning",
-    page_icon="📊",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+
 
 PAGES = {
     "Data Cleaning": phase1,
-    "Data Visualization": phase1,
-    "Make Predictions": phase1,
-    "Business Insights": phase1,
+    "Data Visualization": phase2,
+    "Make Predictions": phase3,
+    "Business Insights": phase4,
     "Customer Segmentation": phase1,
 }
+
+#setting the page configuration
+st.set_page_config(
+    page_title="Data Analysis",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 st.sidebar.title('Navigation')
 selection = st.sidebar.selectbox("Select operation", list(PAGES.keys()))
