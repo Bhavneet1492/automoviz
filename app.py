@@ -1,5 +1,5 @@
 import streamlit as st
-from apps import phase1,phase2,phase3,phase4
+from apps import phase1,phase2,phase3,phase4,phase5
 
 
 
@@ -8,7 +8,7 @@ PAGES = {
     "Data Visualization": phase2,
     "Make Predictions": phase3,
     "Business Insights": phase4,
-    "Customer Segmentation": phase1,
+    "Customer Segmentation": phase5,
 }
 
 #setting the page configuration
