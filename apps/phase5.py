@@ -175,7 +175,7 @@ def app():
             with st.spinner(text="Spreading the table..."):
                 time.sleep(1)
                 st.dataframe(df_res,None,None)
-                st.table(df_res.shape) 
+                st.write(df_res.shape) 
         
         # downoading the clustered data file
         @st.cache
