@@ -128,7 +128,7 @@ Go to <a href="https://bhavneet1492.github.io/automoviz/" target="_blank">AUTOMO
 # 🕒 Future Scope
 
 1. The application currently uses csv files for data. It can be connected to a database like MongoDB
-2. The application has a rigid structure. It can handle only the data of the format same as the sample data. It should be flexible to handle any kind of data
+2. The application has a partially rigid structure. Some dashboards can handle only the data of the format same as the sample data. It should be flexible to handle any kind of data
 3. The application is completely based on functional programming approach. It can be converted into an object-oriented programming application
 
 # 😇 Spread the word!
