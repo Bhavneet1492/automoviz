@@ -17,9 +17,10 @@
 Go to <a href="https://bhavneet1492.github.io/automoviz/" target="_blank">AUTOMOVIZ</a>
 
 [About the App](#-about-the-app) •
-[Local Setup](https://github.com/Bhavneet1492/automoviz/blob/main/README.md#%EF%B8%8F-local-setup) •
+[Local Setup](#%EF%B8%8F-local-setup) •
 [Tech Used](#-tech-used) •
 [Future Scope](#-future-scope) •
+[Support](#-spread-the-word) •
 [Contact](#-contact)
 
   
