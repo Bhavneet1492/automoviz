@@ -9,6 +9,7 @@ import scipy as sc
 import matplotlib.pyplot as plt
 import plotly.express as px
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder,StandardScaler
 import plotly.figure_factory as ff
 import streamlit.components.v1 as components
 
@@ -48,45 +49,6 @@ def app():
 
     <a href="https://bhavneet1492.github.io/Data-Cleaning/" target=“_blank”>How to clean your data?</a>
     """,True)
-
-
-    # st.markdown("""<style>
-    # div~div~div{
-    #     background:blue;
-    # }
-    # </style>""",True)
-
-
-    # st.markdown("""<style>
-    # .banner{width:100%;
-    # background:linear-gradient(to right, #005DB4 , #73DDFF);
-    # animation: gradient 8s linear infinite;
-    # display:flex;
-    # align-items:center;
-    # justify-content:center;
-    # color:transparent;
-    # font-size:0.1rem;
-    # }
-    # @keyframes gradient {
-    #   0%,
-    #   100% {
-    #     filter: hue-rotate(-30deg);
-    #   }
-    #   50% {
-    #     filter: hue-rotate(60deg);
-    #   }
-    # }
-
-    # </style>
-    # <br>
-    # <div class="banner">
-    # hello
-    # </div>
-    # <br>
-    # """, unsafe_allow_html=True)
-
-
-    # st.sidebar.selectbox("select operation",['Data Cleaning','Data Visualization','Make Predictions','Business Insights','Customer Segmentation'])
 
     col1, col2= st.columns(2)
 
@@ -226,19 +188,73 @@ def app():
             ->handling outliers
             ->viewing correlations
     """
-    colx,coly,colz,colp,colq=st.columns(5)
+    colq,colx,coly,colz=st.columns(4)
     with colx:        
         with st.expander("Filter digits from string"):
             cols=st.multiselect("select the column(s)",df.columns,key=5252)
+            for i in cols:
+                if df[i].dtype=="object":
+                    df[i]=df[i].str.replace(r'\D','')
+                    df[i]=pd.to_numeric(df[i])
+            if cols:
+                col=st.selectbox("view converted columns",cols)
+                st.write(df[col])
     with coly:
         with st.expander("Datatype conversion"):
             cols=st.multiselect("select the column(s) to convert",df.columns,key=525)
-            choice=st.radio("Change the datatype to",['None','integer','float','string'],key=514)
+            choice=st.radio("Change the datatype to",['None','integer','float','category'],key=514)
+            if choice=='integer':
+                for i in cols:
+                    try:
+                        df[i]=df[i].astype('int64')
+                    except:
+                        st.error(f"conversion of {i} is not possible")
+            if choice=='float':
+                for i in cols:
+                    try:
+                        df[i]=df[i].astype('float')
+                    except:
+                        st.error(f"conversion of {i} is not possible")
+            if choice=='category':
+                for i in cols:
+                    try:
+                        df[i]=df[i].astype('category')
+                    except:
+                        st.error(f"conversion of {i} is not possible")
     with colz:
         with st.expander("Encode categorical data"):
             choice=st.radio("Select the desired method",['None','Label encoder','One hot encoder'],key=54)
             cols=st.multiselect("select the column(s) to encode",df.columns,key=55)
-    with colp:
+            if choice=="Label encoder":
+                le=LabelEncoder()
+                for i in cols:
+                        if df[i].dtypes==object:
+                            df[i]=le.fit_transform(df[[i]])
+            if choice=="One hot encoder":
+                ohe=OneHotEncoder()
+                for i in cols:
+                        if df[i].dtypes==object:
+                            df[i]=ohe.fit_transform(df[[i]])
+            if cols:
+                col=st.selectbox("view converted columns",cols)
+                st.write(df[col])
+    
+    
+        with colq:
+            with st.expander("Handle missing values"):
+                choice=st.radio("Select the desired method",['None','Drop column(s)','Drop row(s)','Fill in null values','Imputation'],key=34)
+                if choice=='Drop column(s)':
+                    df.dropna(how='any',axis=1,inplace=True)
+                    if st.button('view updated dataset',key=78):
+                        st.dataframe(df)
+                        st.write(df.shape)
+                    if choice=='Drop row(s)':
+                        df.dropna(how='any',inplace=True)
+                        if st.button('view updated dataset',key=114):
+                            st.dataframe(df)
+                            st.write(df.shape)
+    
+    with colq:
         with st.expander("Feature reduction"):
             choice=st.radio("Select the desired method",['None','PCA','Drop column(s)'],key=343)
             if choice=='Drop column(s)':
@@ -268,44 +284,59 @@ def app():
                 n = st.slider('Choose the number of components', 0, df.shape[1], 1)
                 
                 pca = PCA(n_components = n)
-                pca.fit(df)
-                df = pca.transform(df)
-                
-                st.write(df.shape)
 
-        with colq:
-            with st.expander("Handle missing values"):
-                choice=st.radio("Select the desired method",['None','Drop column(s)','Drop row(s)','Fill in null values','Imputation'],key=34)
-                if choice=='Drop column(s)':
-                    df.dropna(how='any',axis=1,inplace=True)
-                    if st.button('view updated dataset',key=78):
-                        st.dataframe(df)
-                        st.write(df.shape)
-                    if choice=='Drop row(s)':
-                        df.dropna(how='any',inplace=True)
-                        if st.button('view updated dataset',key=114):
-                            st.dataframe(df)
-                            st.write(df.shape)
+                try:
+                    pca.fit(df)
+                    df = pca.transform(df)
+                except:
+                    st.error("An error occured")
+                
+                if st.button('view updated dataset',key=940):
+                    st.dataframe(df)
+                    st.write(df.shape)        
+        
         with colx:
-            with st.expander("Smoothen the data"):st.write('hello')
+            with st.expander("Smoothen the data"):
+                cols=st.multiselect("select the column(s) to drop",df.columns,key=15)
+                alpha=st.slider("Set alpha",0.0,1.0,step=0.1)
+                for i in cols:
+                    if ((df[i].dtype=='int64') or (df[i].dtype=="float")):
+                        df[i]=df[i].ewm(alpha=alpha).mean()
+                if cols:
+                    col=st.selectbox("view converted columns",cols)
+                    st.write(df[col])
         with coly:
-            with st.expander("Normalization / with Standard scaling"):st.write('hello')
+            with st.expander("Standard scaling"):
+                cols=st.multiselect("select the column(s) to drop",df.columns,key=1325)
+                scale= StandardScaler()
+                for i in cols:
+                    if ((df[i].dtype=='int64') or (df[i].dtype=="float")):
+                        df[i]=scale.fit_transform(np.array(df[i]).reshape(-1,1))
+                if cols:
+                    col=st.selectbox("view converted columns",cols)
+                    st.write(df[col])
         with colz:
-            with st.expander("Outliers and plots"):st.write('hello')
-        with colp:
-            with st.expander("Heatmaps / Correlation matrices"):st.write('hello')
-        with colq:
             # downoading the cleaned data file
             @st.cache
             def convert_df(df):
                 return df.to_csv().encode('utf-8')
             csv = convert_df(df)
             st.download_button(
-                label="Download the cleaned dataset",
+                label="Download the cleaned data",
                 data=csv,
                 file_name='cleaned_df.csv',
                 mime='text/csv',
             )
+    st.markdown("""
+     <style>
+        .note{
+            color:coral;
+            font-size:1rem;
+            font-family:monospace;
+            font-weight:200;
+            }
+        </style>
+     <h2 class="note">Note: Standard scaling, feature reduction using pca, normalization and data smoothening is not recommended for all columns since it may cause loss of important information such as the price of each car and its sales</h2> """,True)
     st.markdown(""" <hr> """,True)  
     st.markdown(""" ### Raw data visualization """)
 
@@ -335,4 +366,5 @@ def app():
 
         if st.checkbox('View Histogram',value=True):
             fig = px.histogram(df, x=col)
-            st.plotly_chart(fig,use_container_width=True)             
+            st.plotly_chart(fig,use_container_width=True)
+              
