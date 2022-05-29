@@ -17,10 +17,10 @@
 Go to <a href="https://bhavneet1492.github.io/automoviz/" target="_blank">AUTOMOVIZ</a>
 
 [About the App](#-about-the-app) •
-[Localhost Setup](#-localhost-setup) •
+[Local Setup](#-local-setup) •
 [Tech Used](#-tech-used) •
 [Future Scope](#-future-scope) •
-[Contact](#contact)
+[Contact](#-contact)
 
   
 </div>
@@ -54,7 +54,7 @@ Go to <a href="https://bhavneet1492.github.io/automoviz/" target="_blank">AUTOMO
   
   ##### available themes: `custom` | `light` | `dark`
 
-# 🖥️ Localhost Setup
+# 🖥️ Local Setup
 
 ## Requirements:
 - Python 3.8.1 runtime
@@ -141,7 +141,7 @@ If you want to support active development of the AUTOMOVIZ app:
 
 ## ♡ Thank you so much for your interest in AUTOMOVIZ!
 
-# Contact
+# 📧 Contact
 
 [bhavneetkaurkhalsa@gmail.com](https://www.linkedin.com/in/bhavneet-kaur-khalsa-8157a21ba/)
 
