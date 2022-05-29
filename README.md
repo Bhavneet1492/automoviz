@@ -16,11 +16,11 @@
 
 Go to <a href="https://bhavneet1492.github.io/automoviz/" target="_blank">AUTOMOVIZ</a>
 
-[About the App](https://github.com/Bhavneet1492/automoviz#-about-the-app) • 
-[Localhost Setup](https://github.com/Bhavneet1492/automoviz#-localhost-setup) •
-[Tech Used](https://github.com/Bhavneet1492/automoviz#-tech-used) •
-[Future Scope](https://github.com/Bhavneet1492/automoviz#-future-scope) •
-[Contact](https://github.com/Bhavneet1492/automoviz#-contact)
+[About the App](https://github.com/Bhavneet1492/automoviz#%EF%B8%8F-about-the-app) • 
+[Localhost Setup](https://github.com/Bhavneet1492/automoviz#%EF%B8%8F-localhost-setup) •
+[Tech Used](https://github.com/Bhavneet1492/automoviz#%EF%B8%8F-tech-used) •
+[Future Scope](https://github.com/Bhavneet1492/automoviz#%EF%B8%8F-future-scope) •
+[Contact](https://github.com/Bhavneet1492/automoviz#%EF%B8%8F-contact)
   
 </div>
 
