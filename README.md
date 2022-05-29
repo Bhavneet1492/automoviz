@@ -11,6 +11,8 @@
 </p>
 
 `automoviz` <i>is the go-to place for a smooth analysis experience, be it the customers or the industry experts. With features such as data-cleaning, visualizations, segmentations and more powered by an AI-driven technology, automoviz lets you accurately decide your next move for launching a new car or buying one!</i>
+
+Go to <a href="https://bhavneet1492.github.io/automoviz/" target="_blank">AUTOMOVIZ</a>
   
 </div>
 
