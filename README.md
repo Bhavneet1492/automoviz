@@ -95,7 +95,8 @@ Go to <a href="https://bhavneet1492.github.io/automoviz/" target="_blank">AUTOMO
   - Run development server on localhost
     ```
     streamlit run customer.py
-
+    ``` 
+    
 # **</>** Tech Used 
 - Frontend
   - Home Page
