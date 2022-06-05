@@ -1,3 +1,5 @@
+# The DATA CLEANING Dashboard
+
 # importing the required libraries
 import streamlit as st
 import pandas as pd
@@ -18,14 +20,7 @@ def isaln(x):
     for c in x:
         if c.isdigit():return True
 
-# #setting the page configuration
-# st.set_page_config(
-#     page_title="Data cleaning",
-#     page_icon="📊",
-#     layout="wide",
-#     initial_sidebar_state="expanded",
-# )
-
+# the main function that runs when "data cleaning" dashboard is selected in the sidebar
 def app():
 
     # adding the title of the app
@@ -49,7 +44,7 @@ def app():
 
     <a href="https://bhavneet1492.github.io/Data-Cleaning/" target=“_blank”>How to clean your data?</a>
     """,True)
-
+    
     col1, col2= st.columns(2)
 
     with col1:
