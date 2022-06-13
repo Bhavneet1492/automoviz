@@ -33,9 +33,6 @@ def rank_r(df,feature,end,start):
             i[1]=rank
     return pd.DataFrame(sales, columns =['Feature', 'Rank'])
 
-
-
-
 #setting the page configuration
 st.set_page_config(
     page_title="Customer",
@@ -43,6 +40,15 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# hiding menu and footer
+hide_menu_style="""
+                <style>
+                   #MainMenu {visibility:hidden;} 
+                   footer {visibility:hidden;} 
+                </style>
+                """
+st.markdown(hide_menu_style,True)
 
 # adding the introduction
 st.markdown("""
