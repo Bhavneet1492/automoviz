@@ -25,6 +25,17 @@ st.set_page_config(
 )
 
 
+# hiding the menu and the footer
+
+hide_menu_style="""
+                <style>
+                   #MainMenu {visibility:hidden;} 
+                   footer {visibility:hidden;} 
+                </style>
+                """
+st.markdown(hide_menu_style,True)
+
+
 # setting the sidebar for navigating through multiple apps (or pages or dashboards)
 
 st.sidebar.title('Navigation')
