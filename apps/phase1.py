@@ -340,15 +340,15 @@ def app():
         cols=st.multiselect("Select upto two columns for visualization",df.columns,key=8890,default=['Audiosystem','Ex-Showroom_Price'])
 
         def display_error(n):
-            st.error("⚠️ Select ",n, "columns")
-            
-        st.markdown("#### datatypes")
-        st.write(cols[0],":",df[cols[0]].dtype)
-        st.write(cols[1],":",df[cols[1]].dtype)
+            st.error("⚠️ Select "+str(n)+"columns")
 
         if st.checkbox('View Box Plot',value=True):
+            st.write(len(cols))
             if len(cols)!=2:display_error(2)
             else:
+                st.markdown("#### datatypes")
+                st.write(cols[0],":",df[cols[0]].dtype)
+                st.write(cols[1],":",df[cols[1]].dtype)
                 fig = px.box(df, x=cols[0], y=cols[1])
                 st.plotly_chart(fig,use_container_width=True)
 
